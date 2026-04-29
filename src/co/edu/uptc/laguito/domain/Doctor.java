@@ -156,7 +156,7 @@ public class Doctor implements Comparable<Doctor>{
 	/**
      * <b>Descripción: </b> Compara dos médicos primero por años de experiencia
      * y en caso de empate por nombre completo, ambos en orden ascendente <br>
-     * @param other Médico con el que se realiza la comparación
+     * @param o Médico con el que se realiza la comparación
      * @return Valor negativo, cero o positivo según el orden
      */
 	@Override
