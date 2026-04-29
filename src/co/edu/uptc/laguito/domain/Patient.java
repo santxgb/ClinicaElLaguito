@@ -204,6 +204,5 @@ public class Patient {
 			return "Patient [identificationType=" + identificationType + ", idPatient=" + idPatient + ", firstName="
 					+ firstName + ", lastName=" + lastName + ", email=" + email + ", priority=" + priority + "]";
 		}
-	    
-	    
+	   
 }
