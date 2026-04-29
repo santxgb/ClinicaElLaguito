@@ -1,15 +1,21 @@
 package co.edu.uptc.laguito.domain;
+
 import co.edu.uptc.laguito.enums.*;
+import java.util.Objects;
 
 
 public class Doctor implements Comparable<Doctor>{
     
 	private IdentificationType identificationType;
-    private int medicalId;
+    private Integer medicalId;
     private String firstName;
     private String lastName;
     private String specialty;
     private int yearsOfExperience;
+    
+    public Doctor() {
+    	
+    }
     
 	public Doctor(IdentificationType identificationType, int medicalId, String firstName, String lastName,
 			String specialty, int yearsOfExperience) {
@@ -79,6 +85,16 @@ public class Doctor implements Comparable<Doctor>{
 			return fullName.compareTo(fullNameO);
 		}
 		return porExp;
+	}
+	@Override 
+	public boolean equals(Object obj) {
+		Doctor auxDoctor = (Doctor) obj;
+		return this.medicalId.equals(auxDoctor.getMedicalId());
+	}
+	
+	@Override 
+	public int hashCode() {
+		return Objects.hash(this.medicalId);
 	}
 
 	@Override
