@@ -56,10 +56,8 @@ public class MedicalAppointment {
 	@Override
 	public String toString() {
 		return "MedicalAppointment [idMedicalAppointment=" + idMedicalAppointment + ", timeAppointment="
-				+ timeAppointment + ", patient=" + patient + ", doctor=" + doctor + "]";
+				+ timeAppointment + ", patient=" + patient.getFirstName() + " " + patient.getLastName() + 
+				", doctor=" + doctor.getFirstName() + " " + doctor.getLastName() + "]";
 	}
-	
-	
-	
 	
 }
