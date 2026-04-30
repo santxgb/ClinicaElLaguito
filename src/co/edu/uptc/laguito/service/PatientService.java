@@ -14,14 +14,18 @@ public class PatientService {
 	}
 	
 	private boolean validate(Patient patient) {
-		if (patient.getFirstName() == null || patient.getFirstName().isBlank())
+		if (patient.getFirstName() == null || patient.getFirstName().isBlank()) {
 			return false;
-		if (patient.getLastName() == null || patient.getLastName().isBlank())
+		}
+		if (patient.getLastName() == null || patient.getLastName().isBlank()) {
 			return false;
-		if (patient.getEmail() == null || patient.getEmail().isBlank())
+		}
+		if (patient.getEmail() == null || patient.getEmail().isBlank()) {
 			return false;
-		if (patient.getIdPatient() == null || patient.getIdPatient() <= 0)
+		}
+		if (patient.getIdPatient() == null || patient.getIdPatient() <= 0) {
 			return false;
+		}
 		return true;
 	}
 	
