@@ -8,7 +8,7 @@ public class PatientRepository {
 
 	private HashMap<Integer, Patient> patients;
 	private HashSet<String> registeredEmails;
-	public PatientRepository(HashMap<Integer, Patient> patients, HashSet<String> registeredEmails) {
+	public PatientRepository() {
 		super();
 		this.patients = new HashMap<>();
 		this.registeredEmails = new HashSet<>();
