@@ -5,11 +5,28 @@ import co.edu.uptc.laguito.repository.AppointmentRepository;
 import java.util.HashMap;
 import java.util.TreeSet;
 
+/**
+ * <b>Descripción: </b> Clase de servicio que gestiona la lógica de negocio
+ * relacionada con las citas médicas del sistema <br>
+ *
+ * @author Santiago
+ */
 public class AppointmentService {
 	
+	/** Atributo que determina el repositorio de citas médicas */
 	private AppointmentRepository appointmentRepository;
+	
+	/** Atributo que determina el servicio de pacientes para validar su existencia */
 	private PatientService patientService;
+	
+	/** Atributo que determina el servicio de médicos para validar su existencia */
 	private DoctorService doctorService;
+	
+	/**
+     * <b>Descripción: </b> Constructor de la clase <br>
+     * @param patientService Parámetro que determina el servicio de pacientes
+     * @param doctorService Parámetro que determina el servicio de médicos
+     */
 	public AppointmentService(PatientService patientService,
 			DoctorService doctorService) {
 		super();
@@ -18,6 +35,12 @@ public class AppointmentService {
 		this.doctorService = doctorService;
 	}
 	
+	/**
+     * <b>Descripción: </b> Valida que los datos de la cita médica sean correctos,
+     * incluyendo que el paciente y el médico existan en el sistema <br>
+     * @param appointment Parámetro que determina la cita médica a validar
+     * @return true si los datos son válidos, false en caso contrario
+     */
 	private boolean validate(MedicalAppointment appointment) {
 		if(appointment.getIdMedicalAppointment() == null) {
 			return false;
@@ -34,6 +57,13 @@ public class AppointmentService {
 		return true;
 	}
 	
+	/**
+     * <b>Descripción: </b> Registra una cita médica en el sistema previa validación
+     * de sus datos y de la existencia del paciente y el médico <br>
+     * @param appointment Parámetro que determina la cita médica a registrar
+     * @return true si la cita fue registrada, false si los datos no son válidos
+     * o ya existe una cita con el mismo identificador
+     */
 	public boolean addAppointment(MedicalAppointment appointment) {
 		if(!validate(appointment)) {
 			return false;
@@ -41,14 +71,28 @@ public class AppointmentService {
 		return appointmentRepository.addAppointment(appointment);
 	}
 	
+	/**
+     * <b>Descripción: </b> Retorna todas las citas médicas registradas en el sistema <br>
+     * @return HashMap con todas las citas médicas registradas
+     */
 	public HashMap<Integer, MedicalAppointment> findAll(){
 		return appointmentRepository.findAll();
 	}
 	
+	/**
+     * <b>Descripción: </b> Busca y retorna una cita médica por su identificador <br>
+     * @param idMedicalAppointment Parámetro que determina el identificador de la cita
+     * @return La cita médica encontrada, o null si no existe
+     */
 	public MedicalAppointment findById(Integer idMedicalAppointment) {
 		return appointmentRepository.findById(idMedicalAppointment);
 	}
 	
+	/**
+     * <b>Descripción: </b> Retorna la cola de atención con todas las citas ordenadas
+     * primero por hora y en caso de empate por mayor prioridad del paciente <br>
+     * @return TreeSet con las citas médicas ordenadas
+     */
 	public TreeSet<MedicalAppointment> getAttention(){
 		return appointmentRepository.findAllByTimeAndPriority();
 	}
