@@ -1,7 +1,6 @@
 package co.edu.uptc.laguito.service;
 
 import co.edu.uptc.laguito.domain.Doctor;
-import co.edu.uptc.laguito.domain.Patient;
 import co.edu.uptc.laguito.repository.DoctorRepository;
 import java.util.HashMap;
 import java.util.TreeSet;
