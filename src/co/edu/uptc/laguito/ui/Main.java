@@ -10,6 +10,7 @@ import co.edu.uptc.laguito.enums.PriorityEnum;
 import co.edu.uptc.laguito.enums.IdentificationTypeEnum;
 import javax.swing.JOptionPane;
 import java.time.LocalTime;
+import java.util.TreeSet;
 
 public class Main {
 	
@@ -161,9 +162,49 @@ public class Main {
 		}
 	}
 	public void verColaAtencion(){
-		
+		TreeSet<MedicalAppointment> cola = appointmentService.findAllByTimeAndPriority();
+
+	    if (cola.isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "No hay citas registradas.", 
+	            "Cola de Atención", JOptionPane.INFORMATION_MESSAGE);
+	        return;
+	    }
+
+	    StringBuilder sb = new StringBuilder("===== Cola de Atención =====\n\n");
+	    int numero = 1;
+	    for (MedicalAppointment cita : cola) {
+	        sb.append(numero++).append(". ")
+	          .append("Hora: ").append(cita.getTimeAppointment()).append(" | ")
+	          .append("Paciente: ").append(cita.getPatient().getFirstName())
+	          .append(" ").append(cita.getPatient().getLastName()).append(" | ")
+	          .append("Prioridad: ").append(cita.getPatient().getPriority()).append(" | ")
+	          .append("Médico: ").append(cita.getDoctor().getFirstName())
+	          .append(" ").append(cita.getDoctor().getLastName()).append("\n");
+	    }
+
+	    JOptionPane.showMessageDialog(null, sb.toString(), 
+	        "Cola de Atención", JOptionPane.INFORMATION_MESSAGE);
 	}
 	public void verReporteMedicos() {
-		
+		TreeSet<Doctor> medicos = doctorService.findAllByExperience();
+
+	    if (medicos.isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "No hay médicos registrados.", 
+	            "Reporte de Médicos", JOptionPane.INFORMATION_MESSAGE);
+	        return;
+	    }
+
+	    StringBuilder sb = new StringBuilder("===== Reporte de Médicos por Experiencia =====\n\n");
+	    int numero = 1;
+	    for (Doctor doctor : medicos) {
+	        sb.append(numero++).append(". ")
+	          .append(doctor.getFirstName()).append(" ").append(doctor.getLastName())
+	          .append(" | Especialidad: ").append(doctor.getSpecialty())
+	          .append(" | Experiencia: ").append(doctor.getYearsOfExperience())
+	          .append(" año(s)\n");
+	    }
+
+	    JOptionPane.showMessageDialog(null, sb.toString(), 
+	        "Reporte de Médicos", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
