@@ -7,7 +7,7 @@ package co.edu.uptc.laguito.enums;
  * @author Santiago
  */
 
-public enum Priority {
+public enum PriorityEnum {
 	
 	/** Prioridad baja */
     LOW(0),
@@ -28,7 +28,7 @@ public enum Priority {
      * <b>Descripción: </b> Constructor del enum <br>
      * @param value Parámetro que determina el valor numérico de la prioridad
      */
-	private Priority(int value) {
+	private PriorityEnum(int value) {
 		this.value = value;
 	}
 	

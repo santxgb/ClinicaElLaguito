@@ -89,12 +89,27 @@ public class AppointmentService {
 	}
 	
 	/**
+     * <b>Descripción: </b> Retorna todas las citas médicas ordenadas primero por hora
+     * de atención y en caso de empate por mayor prioridad del paciente <br>
+     * @return TreeSet con las citas médicas ordenadas
+     */
+	public TreeSet<MedicalAppointment> findAllByTimeAndPriority(){
+		TreeSet<MedicalAppointment> orden = new TreeSet<>((a, b) ->{
+			int byTime = a.getTimeAppointment().compareTo(b.getTimeAppointment());
+			if(byTime == 0) {
+				return Integer.compare(b.getPatient().getPriority().getValue(),
+					a.getPatient().getPriority().getValue());
+				}
+				return byTime;
+			});
+		orden.addAll(appointmentRepository.findAll().values());
+		return orden;
+	}
+	
+	/**
      * <b>Descripción: </b> Retorna la cola de atención con todas las citas ordenadas
      * primero por hora y en caso de empate por mayor prioridad del paciente <br>
      * @return TreeSet con las citas médicas ordenadas
      */
-	public TreeSet<MedicalAppointment> getAttention(){
-		return appointmentRepository.findAllByTimeAndPriority();
-	}
 	
 }

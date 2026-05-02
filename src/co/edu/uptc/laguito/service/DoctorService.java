@@ -83,10 +83,12 @@ public class DoctorService {
 	/**
      * <b>Descripción: </b> Retorna todos los médicos ordenados por años de experiencia
      * de forma ascendente y en caso de empate por nombre completo de forma ascendente <br>
-     * @return TreeSet con los médicos ordenados
+     * @return TreeSet con los médicos ordenados por experiencia y nombre
      */
-	public TreeSet<Doctor> getReportByExperience(){
-		return doctorRepository.findAllByExperience();
+	public TreeSet<Doctor> findAllByExperience() {
+		TreeSet<Doctor> orden = new TreeSet<>();
+		orden.addAll(doctorRepository.findAll().values());
+		return orden;
 	}
 	
 }

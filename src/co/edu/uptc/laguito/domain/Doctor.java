@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Doctor implements Comparable<Doctor>{
     
 	/** Atributo que determina el tipo de identificación del médico */
-	private IdentificationType identificationType;
+	private IdentificationTypeEnum identificationType;
 	
 	/** Atributo que determina el id médico */
     private Integer medicalId;
@@ -46,7 +46,7 @@ public class Doctor implements Comparable<Doctor>{
      * @param specialty Parámetro que determina la especialidad del médico
      * @param yearsOfExperience Parámetro que determina los años de experiencia
      */
-	public Doctor(IdentificationType identificationType, int medicalId, String firstName, String lastName,
+	public Doctor(IdentificationTypeEnum identificationType, int medicalId, String firstName, String lastName,
 			String specialty, Integer yearsOfExperience) {
 		super();
 		this.identificationType = identificationType;
@@ -61,7 +61,7 @@ public class Doctor implements Comparable<Doctor>{
      * <b>Descripción: </b> Retorna el tipo de identificación del médico <br>
      * @return identificationType Tipo de identificación del médico
      */
-	public IdentificationType getIdentificationType() {
+	public IdentificationTypeEnum getIdentificationType() {
 		return identificationType;
 	}
 
@@ -69,7 +69,7 @@ public class Doctor implements Comparable<Doctor>{
      * <b>Descripción: </b> Asigna el tipo de identificación del médico <br>
      * @param identificationType Nuevo tipo de identificación
      */
-	public void setIdentificationType(IdentificationType identificationType) {
+	public void setIdentificationType(IdentificationTypeEnum identificationType) {
 		this.identificationType = identificationType;
 	}
 	
@@ -178,7 +178,7 @@ public class Doctor implements Comparable<Doctor>{
 	@Override 
 	public boolean equals(Object obj) {
 		Doctor auxDoctor = (Doctor) obj;
-		return this.medicalId.equals(auxDoctor.getMedicalId());
+		return this.medicalId.equals(auxDoctor.getMedicalId()) && this.identificationType == auxDoctor.getIdentificationType();
 	}
 	
 	/**
@@ -187,7 +187,7 @@ public class Doctor implements Comparable<Doctor>{
      */
 	@Override 
 	public int hashCode() {
-		return Objects.hash(this.medicalId);
+		return Objects.hash(this.medicalId, this.identificationType);
 	}
 
 	/**

@@ -1,9 +1,10 @@
 package co.edu.uptc.laguito.domain;
 
-import co.edu.uptc.laguito.enums.IdentificationType;
-import co.edu.uptc.laguito.enums.Priority;
+import co.edu.uptc.laguito.enums.IdentificationTypeEnum;
+import co.edu.uptc.laguito.enums.PriorityEnum;
 import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * <b>Descripción: </b> Clase de modelo que representa
@@ -15,7 +16,7 @@ import java.util.Objects;
 public class Patient {
 	
 		/** Atributo que determina el tipo de identificación del paciente */
-	 	private IdentificationType identificationType;
+	 	private IdentificationTypeEnum identificationType;
 	 	
 	 	/** Atributo que determina el id del paciente */
 	    private Integer idPatient;
@@ -30,10 +31,10 @@ public class Patient {
 	    private String email;
 	    
 	    /** Atributo que determina el historial de medicamentos recetados al paciente */
-	    private LinkedHashSet<String> medicationHistory;
+	    private Set<String> medicationHistory;
 	    
 	    /** Atributo que determina la prioridad de atención del paciente */
-	    private Priority priority;
+	    private PriorityEnum priority;
 	    
 	    /**
 	     * <b>Descripción: </b> Constructor vacío de la clase
@@ -51,8 +52,8 @@ public class Patient {
 	     * @param email Parámetro que determina el correo electrónico
 	     * @param priority Parámetro que determina la prioridad de atención
 	     */
-		public Patient(IdentificationType identificationType, int idPatient, String firstName, String lastName,
-				String email, LinkedHashSet<String> medicationHistory, Priority priority) {
+		public Patient(IdentificationTypeEnum identificationType, int idPatient, String firstName, String lastName,
+				String email, LinkedHashSet<String> medicationHistory, PriorityEnum priority) {
 			super();
 			this.identificationType = identificationType;
 			this.idPatient = idPatient;
@@ -67,7 +68,7 @@ public class Patient {
 	     * <b>Descripción: </b> Retorna el tipo de identificación del paciente <br>
 	     * @return identificationType Tipo de identificación del paciente
 	     */
-		public IdentificationType getIdentificationType() {
+		public IdentificationTypeEnum getIdentificationType() {
 			return identificationType;
 		}
 		
@@ -75,7 +76,7 @@ public class Patient {
 	     * <b>Descripción: </b> Asigna el tipo de identificación del paciente <br>
 	     * @param identificationType Nuevo tipo de identificación
 	     */
-		public void setIdentificationType(IdentificationType identificationType) {
+		public void setIdentificationType(IdentificationTypeEnum identificationType) {
 			this.identificationType = identificationType;
 		}
 		
@@ -147,7 +148,7 @@ public class Patient {
 	     * <b>Descripción: </b> Retorna el historial de medicamentos del paciente <br>
 	     * @return medicationHistory Historial de medicamentos
 	     */
-		public LinkedHashSet<String> getMedicationHistory() {
+		public Set<String> getMedicationHistory() {
 			return medicationHistory;
 		}
 		
@@ -155,7 +156,7 @@ public class Patient {
 	     * <b>Descripción: </b> Asigna el historial de medicamentos del paciente <br>
 	     * @param medicationHistory Nuevo historial de medicamentos
 	     */
-		public void setMedicationHistory(LinkedHashSet<String> medicationHistory) {
+		public void setMedicationHistory(Set<String> medicationHistory) {
 			this.medicationHistory = medicationHistory;
 		}
 		
@@ -163,7 +164,7 @@ public class Patient {
 	     * <b>Descripción: </b> Retorna la prioridad de atención del paciente <br>
 	     * @return priority Prioridad de atención
 	     */
-		public Priority getPriority() {
+		public PriorityEnum getPriority() {
 			return priority;
 		}
 		
@@ -171,7 +172,7 @@ public class Patient {
 	     * <b>Descripción: </b> Asigna la prioridad de atención del paciente <br>
 	     * @param priority Nueva prioridad de atención
 	     */
-		public void setPriority(Priority priority) {
+		public void setPriority(PriorityEnum priority) {
 			this.priority = priority;
 		}
 		
@@ -183,7 +184,7 @@ public class Patient {
 		@Override
 	    public boolean equals(Object obj) {
 	        Patient auxPatient = (Patient) obj;
-	        return this.idPatient.equals(auxPatient.getIdPatient());
+	        return this.idPatient.equals(auxPatient.getIdPatient()) && this.identificationType == auxPatient.getIdentificationType();
 	    }
 		
 		/**
@@ -192,7 +193,7 @@ public class Patient {
 		 */
 		@Override 
 		public int hashCode() {
-			return Objects.hash(this.idPatient);
+			return Objects.hash(this.idPatient, this.identificationType);
 		}
 		
 		/**

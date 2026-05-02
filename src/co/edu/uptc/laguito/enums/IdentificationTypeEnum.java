@@ -7,7 +7,7 @@ package co.edu.uptc.laguito.enums;
  * @author Santiago
  */
 
-public enum IdentificationType {
+public enum IdentificationTypeEnum {
 	
 	/** Cédula de ciudadanía*/
     CC("Cédula de ciudadanía"),
@@ -29,7 +29,7 @@ public enum IdentificationType {
 	 * @param officialName Parámetro que determina el nombre oficial
 	 */
 
-	private IdentificationType(String officialName) {
+	private IdentificationTypeEnum(String officialName) {
 		this.officialName = officialName;
 	}
 	/**
