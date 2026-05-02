@@ -9,6 +9,7 @@ import co.edu.uptc.laguito.domain.Patient;
 import co.edu.uptc.laguito.enums.PriorityEnum;
 import co.edu.uptc.laguito.enums.IdentificationTypeEnum;
 import javax.swing.JOptionPane;
+import java.time.LocalTime;
 
 public class Main {
 	
@@ -125,10 +126,39 @@ public class Main {
 		}
 	}
 	public void registrarCita() {
+		int idCita = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el ID de la cita:", "Registrar cita", JOptionPane.PLAIN_MESSAGE));
+		LocalTime hora = LocalTime.parse(JOptionPane.showInputDialog(null, "Ingrese la hora de la cita (formato HH:mm):", "Registrar Cita", JOptionPane.PLAIN_MESSAGE));
 		
+		int idPaciente = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el ID del paciente:", "Registrar Cita", JOptionPane.PLAIN_MESSAGE));
+		Patient patient = patientService.findById(idPaciente);
+		if (patient == null) {
+            JOptionPane.showMessageDialog(null, "El paciente con el id " + idPaciente + " no existe.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+		
+        int idMedico = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el ID del médico:", "Registrar Cita", JOptionPane.PLAIN_MESSAGE));
+        Doctor doctor = doctorService.findById(idMedico);
+        if (doctor == null) {
+            JOptionPane.showMessageDialog(null, "El médico con el id " + idMedico + " no existe.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        MedicalAppointment appointment = new MedicalAppointment(idCita, hora, patient, doctor);
+        if (appointmentService.addAppointment(appointment)) {
+            JOptionPane.showMessageDialog(null, "La cita ha sido registrada exitosamente.", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo registrar. El ID de la cita ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
 	}
 	public void agregarMedicamento() {
+		int idPaciente = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el id del paciente:", "Agregar Medicamento", JOptionPane.PLAIN_MESSAGE));
+		String medicamento = JOptionPane.showInputDialog(null, "Ingrese el nombre del medicamento:", "Agregar Medicamento", JOptionPane.PLAIN_MESSAGE);
 		
+		if(patientService.addMedication(idPaciente, medicamento)) {
+			JOptionPane.showMessageDialog(null, "El medicamento ha sido agregado exitosamente.", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(null, "No se pudo agregar el medicamento. El paciente no existe o el medicamento ya estaba registrado.", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	public void verColaAtencion(){
 		
