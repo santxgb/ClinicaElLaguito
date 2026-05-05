@@ -12,14 +12,30 @@ import javax.swing.JOptionPane;
 import java.time.LocalTime;
 import java.util.TreeSet;
 
+/**
+ * <b>Descripción: </b> Clase principal de la interfaz de usuario que gestiona
+ * la interacción con el sistema de la Clínica El Laguito mediante ventanas
+ * emergentes. Permite registrar pacientes, médicos y citas médicas, agregar
+ * medicamentos al historial de un paciente, y consultar reportes del sistema <br>
+ *
+ * @author Santiago
+ */
+
 public class Main {
 	
+	/** Atributo que determina el servicio de pacientes */
 	private PatientService patientService;
-	
+ 
+	/** Atributo que determina el servicio de médicos */
 	private DoctorService doctorService;
-	
+ 
+	/** Atributo que determina el servicio de citas médicas */
 	private AppointmentService appointmentService;
-
+ 
+	/**
+	 * <b>Descripción: </b> Constructor de la clase. Inicializa los servicios
+	 * de pacientes, médicos y citas médicas del sistema <br>
+	 */
 	public Main() {
 		super();
 		this.patientService = new PatientService();
@@ -27,10 +43,19 @@ public class Main {
 		this.appointmentService = new AppointmentService(patientService, doctorService);
 	}
 	
+	/**
+	 * <b>Descripción: </b> Método principal que inicia la ejecución del sistema <br>
+	 * @param args Parámetro que determina los argumentos de línea de comandos
+	 */
 	public static void main(String[] args) {
 		new Main().iniciar();
 	}
 	
+	/**
+	 * <b>Descripción: </b> Muestra el menú principal del sistema en un bucle
+	 * hasta que el usuario seleccione la opción de salir. Redirige cada opción
+	 * al método correspondiente <br>
+	 */
 	public void iniciar() {
 		int option = -1;
 		while(option != 0) {
@@ -74,6 +99,12 @@ public class Main {
 			}
 		}
 	}
+	
+	/**
+	 * <b>Descripción: </b> Solicita al usuario mediante ventanas emergentes los
+	 * datos necesarios para registrar un nuevo paciente en el sistema. Muestra un
+	 * mensaje de éxito o error según el resultado del registro <br>
+	 */
 	public void registrarPaciente() {
 		String[] tipos = {"CC - Cédula de ciudadanía", "TI - Tarjeta de identidad", "CE - Cédula de extranjería", "PA - Pasaporte"};
 		int tipoIndex = JOptionPane.showOptionDialog(null, "Seleccione el tipo de identificación:", "Registrar Paciente", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, tipos, tipos[0]);
@@ -104,6 +135,12 @@ public class Main {
 			JOptionPane.showMessageDialog(null, "No se puedo registrar al paciente. El ID o el email ya existen dentro del sistema", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	/**
+	 * <b>Descripción: </b> Solicita al usuario mediante ventanas emergentes los
+	 * datos necesarios para registrar un nuevo médico en el sistema. Muestra un
+	 * mensaje de éxito o error según el resultado del registro <br>
+	 */
 	public void registrarMedico() {
 		String[] tipos = {"CC - Cédula de ciudadanía", "TI - Tarjeta de identidad", "CE - Cédula de extranjería", "PA - Pasaporte"};
 		int tipoIndex = JOptionPane.showOptionDialog(null, "Seleccione el tipo de identificación:", "Registrar Médico", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, tipos, tipos[0]);
@@ -126,6 +163,13 @@ public class Main {
 			JOptionPane.showMessageDialog(null, "No se puedo registrar al médico. El ID o los datos son inválidos para el sistema", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	/**
+	 * <b>Descripción: </b> Solicita al usuario mediante ventanas emergentes los
+	 * datos necesarios para registrar una nueva cita médica en el sistema.
+	 * Verifica que el paciente y el médico existan antes de crear la cita.
+	 * Muestra un mensaje de éxito o error según el resultado del registro <br>
+	 */
 	public void registrarCita() {
 		int idCita = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el ID de la cita:", "Registrar cita", JOptionPane.PLAIN_MESSAGE));
 		LocalTime hora = LocalTime.parse(JOptionPane.showInputDialog(null, "Ingrese la hora de la cita (formato HH:mm):", "Registrar Cita", JOptionPane.PLAIN_MESSAGE));
@@ -151,6 +195,13 @@ public class Main {
             JOptionPane.showMessageDialog(null, "No se pudo registrar. El ID de la cita ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 	}
+	
+	/**
+	 * <b>Descripción: </b> Solicita al usuario el identificador del paciente y el
+	 * nombre del medicamento a agregar en su historial. Muestra un mensaje de éxito
+	 * o error según el resultado de la operación <br>
+	 */
+
 	public void agregarMedicamento() {
 		int idPaciente = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el id del paciente:", "Agregar Medicamento", JOptionPane.PLAIN_MESSAGE));
 		String medicamento = JOptionPane.showInputDialog(null, "Ingrese el nombre del medicamento:", "Agregar Medicamento", JOptionPane.PLAIN_MESSAGE);
@@ -161,6 +212,13 @@ public class Main {
 			JOptionPane.showMessageDialog(null, "No se pudo agregar el medicamento. El paciente no existe o el medicamento ya estaba registrado.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	/**
+	 * <b>Descripción: </b> Consulta y muestra la cola de atención con todas las
+	 * citas médicas ordenadas primero por hora y en caso de empate por mayor
+	 * prioridad del paciente. Si no hay citas registradas muestra un aviso al
+	 * usuario <br>
+	 */
 	public void verColaAtencion(){
 		TreeSet<MedicalAppointment> cola = appointmentService.findAllByTimeAndPriority();
 
@@ -185,6 +243,13 @@ public class Main {
 	    JOptionPane.showMessageDialog(null, sb.toString(), 
 	        "Cola de Atención", JOptionPane.INFORMATION_MESSAGE);
 	}
+	
+	/**
+	 * <b>Descripción: </b> Consulta y muestra el reporte de médicos ordenados por
+	 * años de experiencia de forma ascendente y en caso de empate por nombre
+	 * completo de forma ascendente. Si no hay médicos registrados muestra un aviso
+	 * al usuario <br>
+	 */
 	public void verReporteMedicos() {
 		TreeSet<Doctor> medicos = doctorService.findAllByExperience();
 

@@ -11,10 +11,10 @@ import java.util.HashMap;
  * @author Santiago
  */
 public class PatientService {
-	
+
 	/** Atributo que determina el repositorio de pacientes */
 	private PatientRepository patientRepository;
-	
+
 	/**
      * <b>Descripción: </b> Constructor de la clase
      */
@@ -22,10 +22,10 @@ public class PatientService {
 		super();
 		this.patientRepository = new PatientRepository();
 	}
-	
+
 	/**
-     * <b>Descripción: </b> Valida que los datos obligatorios del paciente
-     * sean correctos antes de registrarlo <br>
+     * <b>Descripción: </b> Valida que los datos obligatorios del paciente sean correctos
+     * y que no exista ya un registro con el mismo identificador (regla de negocio) <br>
      * @param patient Parámetro que determina el paciente a validar
      * @return true si los datos son válidos, false en caso contrario
      */
@@ -42,31 +42,37 @@ public class PatientService {
 		if (patient.getIdPatient() == null || patient.getIdPatient() <= 0) {
 			return false;
 		}
+		if (patientRepository.existsById(patient.getIdPatient())) {
+			return false;
+		}
 		return true;
 	}
-	
+
 	/**
     * <b>Descripción: </b> Registra un paciente en el sistema previa validación
-    * de sus datos <br>
+    * de sus datos. La unicidad del email se valida en esta capa como regla de negocio <br>
     * @param patient Parámetro que determina el paciente a registrar
     * @return true si el paciente fue registrado, false si los datos no son válidos
     * o ya existe un registro con el mismo id o email
     */
 	public boolean addPatient(Patient patient) {
-		if(!validate(patient)) {
+		if (!validate(patient)) {
+			return false;
+		}
+		if (!patientRepository.addEmail(patient.getEmail())) {
 			return false;
 		}
 		return patientRepository.addPatient(patient);
 	}
-	
+
 	/**
      * <b>Descripción: </b> Retorna todos los pacientes registrados en el sistema <br>
      * @return HashMap con todos los pacientes registrados
      */
-	public HashMap<Integer, Patient> findAll(){
+	public HashMap<Integer, Patient> findAll() {
 		return patientRepository.findAll();
 	}
-	
+
 	/**
      * <b>Descripción: </b> Busca y retorna un paciente por su número de identificación <br>
      * @param idPatient Parámetro que determina el número de identificación del paciente
@@ -75,7 +81,7 @@ public class PatientService {
 	public Patient findById(Integer idPatient) {
 		return patientRepository.findById(idPatient);
 	}
-	
+
 	/**
      * <b>Descripción: </b> Agrega un medicamento al historial de un paciente
      * validando que el medicamento no sea nulo ni vacío <br>
@@ -84,7 +90,7 @@ public class PatientService {
      * @return true si el medicamento fue agregado, false en caso contrario
      */
 	public boolean addMedication(Integer idPatient, String medication) {
-		if(medication == null || medication.isBlank()) {
+		if (medication == null || medication.isBlank()) {
 			return false;
 		}
 		return patientRepository.addMedication(idPatient, medication);
