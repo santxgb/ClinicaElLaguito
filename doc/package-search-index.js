@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"co.edu.uptc.laguito.domain"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"co.edu.uptc.laguito.domain"},{"l":"co.edu.uptc.laguito.enums"},{"l":"co.edu.uptc.laguito.repository"},{"l":"co.edu.uptc.laguito.service"},{"l":"co.edu.uptc.laguito.ui"}];updateSearchResults();

@@ -1,1 +1,5 @@
 co.edu.uptc.laguito.domain
+co.edu.uptc.laguito.enums
+co.edu.uptc.laguito.repository
+co.edu.uptc.laguito.service
+co.edu.uptc.laguito.ui
