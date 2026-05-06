@@ -163,8 +163,8 @@ public class Doctor implements Comparable<Doctor>{
 	public int compareTo(Doctor o) {
 		int porExp = Integer.compare(this.yearsOfExperience, o.yearsOfExperience);
 		if(porExp == 0) {
-			String fullName = this.firstName + "" + this.lastName;
-			String fullNameO = o.firstName + "" + o.lastName;
+			String fullName = this.firstName + " " + this.lastName;
+			String fullNameO = o.firstName + " " + o.lastName;
 			return fullName.compareTo(fullNameO);
 		}
 		return porExp;
