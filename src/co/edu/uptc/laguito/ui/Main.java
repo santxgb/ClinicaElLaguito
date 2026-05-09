@@ -127,7 +127,7 @@ public class Main {
 		}
 		PriorityEnum priority = PriorityEnum.values()[prioridadIndex];
 		
-		Patient patient = new Patient(identificationType, idPatient, firstName, lastName, email, null, priority);
+		Patient patient = new Patient(identificationType, idPatient, firstName, lastName, email, priority);
 		
 		if(patientService.addPatient(patient)) {
 			JOptionPane.showMessageDialog(null, "Paciente registrado exitosamente.", "Correcto", JOptionPane.INFORMATION_MESSAGE);

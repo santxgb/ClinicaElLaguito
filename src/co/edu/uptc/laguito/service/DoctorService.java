@@ -93,5 +93,4 @@ public class DoctorService {
 		orden.addAll(doctorRepository.findAll().values());
 		return orden;
 	}
-
 }

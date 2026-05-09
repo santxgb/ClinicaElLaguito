@@ -53,7 +53,7 @@ public class Patient {
 	     * @param priority Parámetro que determina la prioridad de atención
 	     */
 		public Patient(IdentificationTypeEnum identificationType, int idPatient, String firstName, String lastName,
-				String email, LinkedHashSet<String> medicationHistory, PriorityEnum priority) {
+				String email, PriorityEnum priority) {
 			super();
 			this.identificationType = identificationType;
 			this.idPatient = idPatient;
@@ -182,18 +182,19 @@ public class Patient {
 		 * @return true si los pacientes tienen el mismo ID, false en caso contrario
 		 */
 		@Override
-	    public boolean equals(Object obj) {
-	        Patient auxPatient = (Patient) obj;
-	        return this.idPatient.equals(auxPatient.getIdPatient()) && this.identificationType == auxPatient.getIdentificationType();
-	    }
+		public boolean equals(Object obj) {
+		    Patient auxPatient = (Patient) obj;
+		    return this.idPatient.equals(auxPatient.getIdPatient()) 
+		        && this.identificationType == auxPatient.getIdentificationType();
+		}
 		
 		/**
 		 * <b>Descripción: </b> Genera el código hash del paciente basado en su ID <br>
 		 * @return Código hash del paciente
 		 */
-		@Override 
+		@Override
 		public int hashCode() {
-			return Objects.hash(this.idPatient, this.identificationType);
+		    return Objects.hash(this.idPatient, this.identificationType);
 		}
 		
 		/**
